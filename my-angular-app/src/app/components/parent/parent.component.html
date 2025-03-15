@@ -1,0 +1,68 @@
+<p>parent works!</p>
+<h2>Parent Component</h2>
+<app-child [childData]="parentData" (childEvent)="receiveMessage($event)"></app-child>
+<p>{{ message }}</p>
+
+<h1>Data from Service</h1>
+<ul>
+    <li *ngFor="let item of data">{{ item }}</li>
+</ul>
+<input [(ngModel)]="newItem" placeholder="Add new item" />
+<button (click)="addItem()">Add</button>
+<button (click)="changeData()">Change Data</button>
+<h2>Manual Change Detection</h2>
+<p>{{ message }}</p>
+<button (click)="changeMessage()">Change Message</button>
+<div *ngIf="isVisible">This element is conditionally rendered.</div>
+<ul>
+    <li *ngFor="let item of items">{{ item }}</li>
+</ul>
+
+<div [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'map'">Map View</div>
+    <div *ngSwitchCase="'list'">List View</div>
+    <div *ngSwitchDefault>Default View</div>
+</div>
+<div [ngClass]="{'active': isActive, 'disabled': isDisabled}">Class Binding Example</div>
+<div [ngStyle]="{'color': color, 'font-size': fontSize + 'px'}">Style Binding Example</div>
+<p appHighlight>Hover over this text to see the directive in action.</p>
+<img [src]="imageUrl" />
+<button [attr.aria-label]="label">Click me</button>
+<div [class.active]="isActive">Class Binding Example</div>
+<div [style.color]="color">Style Binding Example</div>
+<button (click)="handleClick()">Click me</button>
+<input [(ngModel)]="name" />
+<p>Hello, {{ name }}!</p>
+
+<form #templateForm="ngForm" (ngSubmit)="onSubmit(templateForm)">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" ngModel required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" ngModel required email>
+    </div>
+    <button type="submit" [disabled]="myForm.invalid">Submit</button>
+</form>
+
+<form [formGroup]="myForm" (ngSubmit)="onSubmitFormGroup()">
+    <div>
+        <label for="name">Name:</label>
+        <input id="name" formControlName="name">
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email">
+    </div>
+    <button type="submit" [disabled]="myForm.invalid">Submit</button>
+</form>
+
+<div *ngIf="data">
+    <pre>{{ data | json }}</pre>
+</div>
+
+<div>
+    <p>State: {{ state | json }}</p>
+    <button (click)="updateState()">Update State</button>
+</div>

@@ -1,0 +1,97 @@
+<div *ngIf="loading$ | async">Loading...</div>
+<div *ngIf="error$ | async as error">{{ error }}</div>
+<ul>
+  <li *ngFor="let item of items$ | async">{{ item.name }}</li>
+</ul>
+<button (click)="loadItems()">Load Items</button>
+
+<form #userForm="ngForm" (ngSubmit)="onSubmit1(userForm)" novalidate>
+  <div>
+    <label for="name">Name:</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      ngModel
+      required
+      minlength="3"
+      #name="ngModel"
+    />
+    <div *ngIf="name.invalid && name.touched">
+      <small *ngIf="name.errors?.['required']">Name is required.</small>
+      <small *ngIf="name.errors?.['minlength']">
+        Name must be at least 3 characters long.
+      </small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="userForm.invalid">Submit</button>
+</form>
+
+<form [formGroup]="userForm1" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input
+      id="name"
+      formControlName="name"
+      [class.is-invalid]="userForm.controls['name'].invalid && userForm.controls['name'].touched"
+    />
+    <div *ngIf="userForm.controls['name']?.invalid && userForm.controls['name']?.touched">
+      <small *ngIf="userForm.controls['name']?.errors?.['required']">Name is required.</small>
+      <small *ngIf="userForm.controls['name']?.errors?.['minlength']">
+        Name must be at least 3 characters long.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input
+      id="email"
+      formControlName="email"
+      [class.is-invalid]="userForm.controls['email'].invalid && userForm.controls['email'].touched"
+    />
+    <div *ngIf="userForm.controls['email']?.invalid && userForm.controls['email']?.touched">
+      <small *ngIf="userForm.controls['email']?.errors?.['required']">Email is required.</small>
+      <small *ngIf="userForm.controls['email']?.errors?.['email']">Invalid email format.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="userForm.invalid">Submit</button>
+</form>
+
+<ng-container *ngIf="isVisible">
+  <p>This paragraph is conditionally rendered.</p>
+</ng-container>
+<ng-container *ngFor="let item of items">
+  <div>{{ item.name }}</div>
+  <p>{{ item.description }}</p>
+</ng-container>
+
+<ng-container *ngIf="isVisible">
+  <ng-container *ngFor="let item of items">
+    <div>{{ item.name }}</div>
+    <p>{{ item.description }}</p>
+  </ng-container>
+</ng-container>
+
+<ng-template #templateRef>
+  <p>This content is inside a template.</p>
+</ng-template>
+<div *ngIf="showContent else noContent">
+  <p>This content will display if 'showContent' is true.</p>
+</div>
+
+<ng-template #noContent>
+  <p>This content will display if 'showContent' is false.</p>
+</ng-template>
+
+<ul>
+  <li *ngFor="let item of items">
+    <ng-template [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+  </li>
+</ul>
+
+<ng-template #templateRef let-item>
+  <p>{{ item.name }}</p>
+</ng-template>

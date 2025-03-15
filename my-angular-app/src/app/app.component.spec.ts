@@ -1,5 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -27,3 +28,31 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, my-angular-app');
   });
 });
+
+describe('MyComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
+  beforeEach(async () => {
+  	await TestBed.configureTestingModule({
+  		declarations: [AppComponent],
+  	}).compileComponents();
+  });
+
+  beforeEach(() => {
+  	fixture = TestBed.createComponent(AppComponent);
+  	component = fixture.componentInstance;
+  	fixture.detectChanges();
+  });
+
+  it('should create', () => {
+  	expect(component).toBeTruthy();
+  });
+});
+
+// describe('My App', () => {
+//   it('should display welcome message', () => {
+//   	cy.visit('/');
+//   	cy.contains('Welcome to My App!');
+//   });
+// });
