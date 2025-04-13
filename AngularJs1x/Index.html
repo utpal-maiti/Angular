@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Table with Multiline Edit and Change Event</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        <tr ng-repeat="item in items">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>
+                <textarea ng-model="item.description" ng-change="onDescriptionChange(item)" title="Enter description" placeholder="Enter description here"></textarea>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        angular.module('myApp', [])
+            .controller('myCtrl', function ($scope) {
+                $scope.items = [
+                    { id: 1, name: 'Item 1', description: 'Description for item 1' },
+                    { id: 2, name: 'Item 2', description: 'Description for item 2' },
+                    { id: 3, name: 'Item 3', description: 'Description for item 3' }
+                ];
+
+                $scope.onDescriptionChange = function (item) {
+                    console.log('Description changed for:', item);
+                };
+            });
+    </script>
+</body>
+
+</html>
